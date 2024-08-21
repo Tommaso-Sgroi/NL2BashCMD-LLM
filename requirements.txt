@@ -1,0 +1,10 @@
+six~=1.16.0
+numpy~=2.1.0
+llama-cpp-python~=0.2.89
+llama-cpp-python[server]
+torch==2.4.0
+
+ollama~=0.3.1
+requests~=2.32.3
+tqdm~=4.66.5
+openai~=1.43.0

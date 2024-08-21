@@ -1,0 +1,24 @@
+# TELLINA -> ./benchmarks/[gpt-4o-mini]-nl2bash-data.json-.json	0.5836793269014717
+è inutile farlo su MAGNUM, perché è il dataset che ha generato lui
+
+TELLINA/[Llama-3-8b-hf]-base.json	0.044014187498550066
+TELLINA/[Llama-3-70B]-base.json	0.1702435098742771
+TELLINA/CodeLlama-7b-Instruct-hf_find-dot-fix.jsonl	0.023236083221634635
+TELLINA/CodeLlama-7b-Instruct-hf.jsonl	0.023236083221634635
+TELLINA/Meta-Llama-3.1-8B_find-dot-fix.jsonl	0.013707089349669212
+TELLINA/Meta-Llama-3.1-8B.jsonl	0.013707089349669212
+TELLINA/mistral-7b-instruct-v0.3_find-dot-fix.jsonl	-0.5152915895969945
+TELLINA/mistral-7b-instruct-v0.3.jsonl	-0.5152915895969945
+TELLINA/mistral-7b-v0.3_find-dot-fix.jsonl	0.02245058407265151
+TELLINA/mistral-7b-v0.3.jsonl	0.02245058407265151
+
+MAGNUM/[Llama-3-8b-hf]-base.json NON ESEGUITO
+MAGNUM/[Llama-3-70b-chat-hf]-magnum_chatGPT_generated_data.json-part1.json	-0.23185593944624155
+MAGNUM/CodeLlama-7b-Instruct-hf_find-dot-fix.jsonl	0.026392075996368315
+MAGNUM/CodeLlama-7b-Instruct-hf.jsonl	0.026392075996368315
+MAGNUM/Meta-Llama-3.1-8B_find-dot-fix.jsonl	0.01376077328415268
+MAGNUM/Meta-Llama-3.1-8B.jsonl	0.01376077328415268
+MAGNUM/mistral-7b-instruct-v0.3_find-dot-fix.jsonl	-0.5184018055067655
+MAGNUM/mistral-7b-instruct-v0.3.jsonl	-0.5184018055067655
+MAGNUM/mistral-7b-v0.3_find-dot-fix.jsonl	0.022138850532735163
+MAGNUM/mistral-7b-v0.3.jsonl	0.022138850532735163
