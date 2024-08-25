@@ -2,8 +2,7 @@
 curl --request POST \
     --url http://localhost:8000/v1/completions \
     --header "Content-Type: application/json" \
-    --data "{\"prompt\": \"write just what i say, do not say anything else: make me a bash script to remove all files from a directory:\",\"n_predict\": 128,
-    \"temperature\":0, \"logprobs\":true, \"stop\":[\"Q:\", \"\n\"]}"
+--data '{"prompts": [" What is the capital of the US?", " What is the capital of France? "], "n_predict": 2048}'
 
 
 #curl --request POST \

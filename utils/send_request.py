@@ -46,7 +46,7 @@ class ResponseData(object):
     def __str__(self):
         return f'[model]{self.model}: {self.text}'
 
-
+@timeit
 def chat_llama_cpp_server(*, url, headers, data:RequestData):
     response = requests.post(url, headers=headers, data=json.dumps(data.toJson()))
     json_response = response.json()
