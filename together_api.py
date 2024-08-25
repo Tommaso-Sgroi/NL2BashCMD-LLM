@@ -31,7 +31,7 @@ data = {
     "logprobs": True,
     "max_tokens": 50,
     "seed": 438441351351443,
-    "stop": ['<|im_end|>', '</s>', '\n', '\\'],
+    "stop": ['<|im_end|>', '</s>', '\n'],
 }
 
 
@@ -204,11 +204,13 @@ if __name__ == '__main__':
 
     dataset = get_dataset(dataset_path)
 
-    # total = benchmark(model, notes=notes, base_prompt=base_prompt)
+    total = benchmark(model, notes=notes, base_prompt=base_prompt)
     # total = benchmark(model, notes=notes) # uncomment to use it without custom prompt
 
-    outfile = f"./benchmarks/['meta-llama', 'Llama-3-8b-hf']-WITH_HIGH_prompt_engineering_complete.json"
-    avg = total_accuracy(outfile)
 
-    print('total accuracy', avg)
+    # uncomment to show the accuracy of the first benchmark
+    # outfile = f"./benchmarks/['meta-llama', 'Llama-3-8b-hf']-WITH_HIGH_prompt_engineering_complete.json"
+    # avg = total_accuracy(outfile)
+
+    # print('total accuracy', avg)
 
