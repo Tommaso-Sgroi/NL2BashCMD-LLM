@@ -1,0 +1,7 @@
+"1": {"prediction": " cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/mymodule.ko\n", "confidence": 0.825562506942381, "score": 0.825562506942381, "ground_truth": "sudo cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/"},
+"2": {"prediction": " grep IP_MROUTE /boot/config-$(uname -r)\n", "confidence": 0.7883365641827494, "score": -0.26277885472758317, "ground_truth": "cat /boot/config-`uname -r` | grep IP_MROUTE"},
+"3": {"prediction": " zcat /proc/config.gz | grep CONFIG_DEBUG_INFO\n", "confidence": 0.6346741504044888, "score": -0.6346741504044888, "ground_truth": "cat /boot/config-`uname -r`"},
+"4": {"prediction": " lsmod | grep perf\n", "confidence": 0.6419763066244076, "score": -0.6419763066244076, "ground_truth": "find /lib/modules/`uname -r` -regex .*perf.*"},
+"5": {"prediction": " grep -r HIGHMEM /boot/config-$(uname -r)\n", "confidence": 0.6962016492402258, "score": 0.6962016492402258, "ground_truth": "grep \u201cHIGHMEM\u201d /boot/config-`uname -r`"},
+"6": {"prediction": " ps -p 2671 -o comm= | grep tail\n", "confidence": 0.6526811291577517, "score": -0.6526811291577517, "ground_truth": "cat /proc/2671/maps | grep `which tail`"},
+"7": {"prediction": " grep PROBES /boot/config-$(uname -r)\n", "confidence": 0.7506305266116258, "score": 0.7506305266116258, "ground_truth": "grep PROBES /boot/config-$(uname -r)"},
