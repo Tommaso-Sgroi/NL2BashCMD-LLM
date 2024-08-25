@@ -151,7 +151,7 @@ def total_accuracy(path):
 if __name__ == '__main__':
 
     # with open('benchmarks/tmp.[Llama-3-8b-hf]-nl2bash-data.json.json', 'w' ) as f:
-    #     with open("benchmarks/['meta-llama', 'Llama-3-8b-hf']-WITH_HIGH_prompt_engineering_complete.json", 'r') as ff:
+    #     with open("benchmarks/['meta-llama', 'Llama-3-8b-hf']-few-shots.json", 'r') as ff:
     #         r = json.load(ff)
     #         for k, v in r.items():
     #             f.write(f"{k}: {v},\n")
@@ -209,7 +209,7 @@ if __name__ == '__main__':
 
 
     # uncomment to show the accuracy of the first benchmark
-    # outfile = f"./benchmarks/['meta-llama', 'Llama-3-8b-hf']-WITH_HIGH_prompt_engineering_complete.json"
+    # outfile = f"./benchmarks/['meta-llama', 'Llama-3-8b-hf']-few-shots.json"
     # avg = total_accuracy(outfile)
 
     # print('total accuracy', avg)
