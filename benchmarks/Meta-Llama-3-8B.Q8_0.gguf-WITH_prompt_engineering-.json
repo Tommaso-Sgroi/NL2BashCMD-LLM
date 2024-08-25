@@ -1,0 +1,122 @@
+{
+  "158": {
+    "prediction": "1. Calculate md5 sum of a file: $md5sum filename 2. Calculate md5 sum of multiple files: $md5sum *.txt 3. Calculate md5 sum of all files in the current directory tree: $find",
+    "confidence": 0.6224123388557055,
+    "score": -0.6224123388557055,
+    "ground_truth": "find . | xargs md5sum"
+  },
+  "159": {
+    "prediction": " echo $((0x$(echo -n \"$KEY\" | md5sum | cut -d' ' -f1 | head -c 10)0000000000)) > /tmp/command_cache.$(date +%s)  The",
+    "confidence": 0.600677135905931,
+    "score": -0.600677135905931,
+    "ground_truth": "FILE=\"/tmp/command_cache.`echo -n \"$KEY\" | md5sum | cut -c -10`\""
+  },
+  "160": {
+    "prediction": " echo -n \"$line\" | md5sum | cut -f1 -d\" \"  # Save the output of the above command to a variable.  md5=$(echo -n \"$line\" | md5sum | cut -f",
+    "confidence": 0.6890382249461223,
+    "score": 0.0,
+    "ground_truth": "md5=$(echo \"$line\"|md5sum)"
+  },
+  "161": {
+    "prediction": "1. The following is a bash script that will generate an MD5 hash for any file you specify on the command line. This is useful if you want to verify the integrity of a downloaded file, or if you want to check whether a file has",
+    "confidence": 0.4301552342750711,
+    "score": -0.4301552342750711,
+    "ground_truth": "checksum=`md5sum /etc/localtime | cut -d' ' -f1`"
+  },
+  "162": {
+    "prediction": "1. Check if a file exists using test command. The following example shows how to use the -f option with the test command to check whether a file exists or not. If the file exists, it returns true (0), otherwise false (1",
+    "confidence": 0.4363675049599163,
+    "score": -0.4363675049599163,
+    "ground_truth": "ls -alR -I dev -I run -I sys -I tmp -I proc /path | md5sum -c /tmp/file"
+  },
+  "163": {
+    "prediction": "1. The following is a list of commands that can be used to perform various operations on files and directories in Linux. In this tutorial, we will show you how to use the find command with examples and test cases. This is a very useful feature",
+    "confidence": 0.42746382764489893,
+    "score": -0.42746382764489893,
+    "ground_truth": "cpio -i -e theDirname | md5sum"
+  },
+  "164": {
+    "prediction": " echo -n \"\" | md5sum",
+    "confidence": 0.7106968834928594,
+    "score": 0.7106968834928594,
+    "ground_truth": "echo -n \"\" | md5sum"
+  },
+  "165": {
+    "prediction": " echo -n \"\" | md5sum",
+    "confidence": 0.7100227844410416,
+    "score": 0.7100227844410416,
+    "ground_truth": "echo -n | md5sum"
+  },
+  "166": {
+    "prediction": " $md5sum $ecriv > $ecriv.md5",
+    "confidence": 0.6047434679221545,
+    "score": -0.6047434679221545,
+    "ground_truth": "md5sum \"$ecriv\""
+  },
+  "167": {
+    "prediction": " md5sum $item | cut -d ' ' -f1",
+    "confidence": 0.6521138146306252,
+    "score": 0.6521138146306252,
+    "ground_truth": "md5=$(md5sum $item | cut -f1 -d\\ )"
+  },
+  "168": {
+    "prediction": " md5sum ${my_iso_file} | cut -d ' ' -f1 > /tmp/md5",
+    "confidence": 0.6416123680333227,
+    "score": -0.6416123680333227,
+    "ground_truth": "md5=\"$(md5sum \"${my_iso_file}\")\""
+  },
+  "169": {
+    "prediction": " md5sum ${my_iso_file} | cut -d ' ' -f1 > /tmp/md5",
+    "confidence": 0.639814839346039,
+    "score": -0.639814839346039,
+    "ground_truth": "md5=`md5sum ${my_iso_file} | cut -b-32`"
+  },
+  "170": {
+    "prediction": " $md5sum $source_file | awk '{print $1}' > /tmp/source_md5sum.txt  $md5sum $dest_file | awk '{print $1}' > /tmp/dest_md5sum.txt  Compare md5",
+    "confidence": 0.7567748910979197,
+    "score": -0.7567748910979197,
+    "ground_truth": "md5sum \"$source_file\" \"$dest_file\""
+  },
+  "171": {
+    "prediction": "1. The following is a bash script that will calculate the MD5 checksum for each file in a directory and then compare it to the existing checksums stored in a text file. This is useful if you want to check whether your files have been corrupted",
+    "confidence": 0.3718318664999514,
+    "score": -0.3718318664999514,
+    "ground_truth": "find \"$path\" -type f -print0 | sort -z | xargs -r0 md5sum | md5sum"
+  },
+  "172": {
+    "prediction": " find . -name 'main.cpp*' | xargs md5sum",
+    "confidence": 0.6406741723537442,
+    "score": -0.6406741723537442,
+    "ground_truth": "md5sum main.cpp*"
+  },
+  "173": {
+    "prediction": "1. The following is a list of Unix commands as specified by various POSIX standards. This is a very simple script that will create an MD5 hash for any file you pass to it. md5sum -c md5sums. md5",
+    "confidence": 0.41627251407435995,
+    "score": -0.41627251407435995,
+    "ground_truth": "SUM=$(tree | md5sum)"
+  },
+  "174": {
+    "prediction": " echo -n \"a\" | md5sum",
+    "confidence": 0.8051338232720763,
+    "score": 0.40256691163603814,
+    "ground_truth": "echo \"a\" | md5sum"
+  },
+  "175": {
+    "prediction": " echo -n \"exampleString\" | md5sum",
+    "confidence": 0.8226469733489861,
+    "score": 0.8226469733489861,
+    "ground_truth": "echo -n 'exampleString' | md5sum"
+  },
+  "176": {
+    "prediction": " echo -n \"logdir\" | md5sum | cut -d ' ' -f1",
+    "confidence": 0.6914680260983439,
+    "score": 0.2304893420327813,
+    "ground_truth": "echo -n \"logdir\" | md5sum - | awk '{print $1}'"
+  },
+  "177": {
+    "prediction": " echo -n \"password\" | md5sum",
+    "confidence": 0.7949140844413276,
+    "score": 0.3974570422206638,
+    "ground_truth": "echo \"password\" | md5sum"
+  }
+}
