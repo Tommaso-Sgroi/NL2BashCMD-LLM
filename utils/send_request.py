@@ -1,5 +1,4 @@
 from json import JSONEncoder
-from typing import Dict
 from .utils import timeit
 import requests
 import json
@@ -48,9 +47,14 @@ class ResponseData(object):
         return f'[model]{self.model}: {self.text}'
 
 
-@timeit
 def chat_llama_cpp_server(*, url, headers, data:RequestData):
     response = requests.post(url, headers=headers, data=json.dumps(data.toJson()))
+    json_response = response.json()
+    rd = ResponseData(json_response)
+    return rd
+
+def inference_with_together_api(*, url, headers, data):
+    response = requests.post(url, data=json.dumps(data), headers=headers)
     json_response = response.json()
     rd = ResponseData(json_response)
     return rd

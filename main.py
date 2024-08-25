@@ -63,6 +63,7 @@ def tellina_inference(model_name, notes=''):
             k = int(k)
 
             nl = f'{command["invocation"]}. Bash command: '
+
             gtcmd = command['cmd']
 
             # print(f'processing {k}, completition {(completition/total_entries)*100:.4f}%')
