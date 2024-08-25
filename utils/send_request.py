@@ -1,7 +1,9 @@
+import os
 from json import JSONEncoder
 from .utils import timeit
 import requests
 import json
+from time import sleep as s
 
 class RequestData(JSONEncoder):
     def __init__(self, prompt, *, n_predict=0, temperature, logprobs, **kwargs):
@@ -46,6 +48,9 @@ class ResponseData(object):
     def __str__(self):
         return f'[model]{self.model}: {self.text}'
 
+def wait_rate_limit(rate):
+    s(rate + 0.01)
+
 @timeit
 def chat_llama_cpp_server(*, url, headers, data:RequestData):
     response = requests.post(url, headers=headers, data=json.dumps(data.toJson()))
@@ -53,8 +58,20 @@ def chat_llama_cpp_server(*, url, headers, data:RequestData):
     rd = ResponseData(json_response)
     return rd
 
-def inference_with_together_api(*, url, headers, data):
-    response = requests.post(url, data=json.dumps(data), headers=headers)
+def inference_with_together_api(*, url, headers, data, use_proxy=False):
+    response = requests.post(url, data=json.dumps(data), headers=headers, \
+                             proxies=None if not use_proxy else {'https':os.getenv('PROXY_PIA')})
     json_response = response.json()
+    if response.status_code != 200:
+        print("Error: " + json.dumps(json_response, indent=2))
+    rd = ResponseData(json_response)
+    return rd
+
+
+def inference_with_api(*, url, headers, data, proxies=None):
+    response = requests.post(url, data=json.dumps(data), headers=headers, proxies=proxies)
+    json_response = response.json()
+    if response.status_code != 200:
+        print("Error: " + json.dumps(json_response, indent=2))
     rd = ResponseData(json_response)
     return rd
