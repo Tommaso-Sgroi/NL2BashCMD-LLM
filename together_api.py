@@ -5,6 +5,8 @@ import time
 from json import dumps, dump
 from uu import Error
 
+from torch.onnx.symbolic_opset11 import chunk
+
 import utils.argparser as argparser
 from tqdm import tqdm
 
@@ -143,15 +145,6 @@ def benchmark(model_name, notes='', base_prompt=''):
             dump(predictions, benchmark_tellina, indent=2)
 
     return sum(total_accuracy) / len(total_accuracy)
-
-def total_accuracy(path):
-    with open(path, 'r') as benchmark_tellina:
-        data = json.load(benchmark_tellina)
-
-    total_score = 0
-    for k,v in data.items():
-        total_score += v['score']
-    return total_score / len(data)
 
 
 def setup_envs():

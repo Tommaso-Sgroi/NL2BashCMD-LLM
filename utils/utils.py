@@ -8,4 +8,3 @@ def timeit(func):
         return end - start, r
     return time
 
-
