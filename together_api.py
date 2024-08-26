@@ -23,7 +23,7 @@ url = ""
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
-    "Authorization": f"Bearer {os.environ.get('TOGETHER_API_KEY')}"
+    "Authorization": ''
 }
 data = {
     # "n_predict": 1,
@@ -214,6 +214,7 @@ if __name__ == '__main__':
     notes = os.getenv('NOTES')
     proxies = None if not use_proxy else {'https': os.getenv('PROXY_PIA')}
     data['temperature'] = float(os.getenv('TEMPERATURE'))
+    headers['Authorization'] = f"Bearer {os.getenv('TOGETHER_API_KEY')}"
 
     tmp = {'rate':rate_limit, 'proxy':use_proxy, 'dataset_path':dataset_path, 'url':url, 'model':model}
     if '' in tmp:

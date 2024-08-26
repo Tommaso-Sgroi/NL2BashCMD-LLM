@@ -2,7 +2,7 @@ import argparse
 
 parser = argparse.ArgumentParser(prog='NL2BashCMD-NextGen')
 
-parser.add_argument('-k', '--together_api_key', required=False)
+parser.add_argument('-k', '--together_api_key', required=False, default='')
 parser.add_argument('-d', '--dataset_path', required=False)
 parser.add_argument('-p', '--proxy_pia', required=False, default='')
 parser.add_argument('-u', '--url', required=False, help='server url to which send requests')
