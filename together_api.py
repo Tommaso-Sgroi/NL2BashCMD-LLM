@@ -57,8 +57,8 @@ def inference(prompt):
 
 
 def benchmark(model_name, notes='', base_prompt=''):
-    tmpfile = f'./benchmarks/tmp.[{os.path.basename(model_name)}]-{os.path.basename(dataset_path)}.json'
-    outfile = f'./benchmarks/[{os.path.basename(model_name)}]-{os.path.basename(dataset_path)}.json'
+    tmpfile = f'./benchmarks/tmp.[{os.path.basename(model_name)}]-{os.path.basename(dataset_path)}-{notes}.json'
+    outfile = f'./benchmarks/[{os.path.basename(model_name)}]-{os.path.basename(dataset_path)}-{notes}.json'
     total_accuracy = []
     predictions = dict()
 
