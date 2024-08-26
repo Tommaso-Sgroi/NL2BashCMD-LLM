@@ -1,0 +1,1 @@
+{"index": 9473, "prediction": "find . -name 'files_to_find .txt' -exec touch {} \\;", "confidence": 0.7284404372144762, "score": -0.7284404372144762, "ground_truth": "touch `cat files_to_find.txt`\n"}
