@@ -63,6 +63,11 @@ def benchmark(model_name, notes='', base_prompt=''):
     predictions = dict()
 
     def resume_from_crash():
+        """
+        I'm sorry for whoever must read the following code,
+        it works and does it well (with a high, but still not considerable, overhead).
+        Do not question, even if I could, I am not able to answer for it.
+        """
         import re
         import json
         with open(tmpfile, 'r') as resume:
@@ -184,11 +189,22 @@ if __name__ == '__main__':
     Bash Command: ls -a | grep .txt
 
 '''
+    # -------------------------------------------
+    # scary area, pythonic jump scare!!!
     args = argparser.parser.parse_args()
     for arg in vars(args):
         var = str(arg).upper()
         if var != '':
             os.environ[var] = str(getattr(args, str(arg))) # override env variables
+
+    # beware, war crimes ahead
+    # for arg in vars(args):
+    #     os.environ[str(arg).upper()] = (
+    #         os.environ)[str(arg).upper()] \
+    #         if os.environ[str(arg).upper()] == '' \
+    #         else str(getattr(args, str(arg))
+    #     ) # override env variables
+    # -------------------------------------------
 
     rate_limit = float(os.getenv('RATE_LIMIT'))  # one request for second :(
     use_proxy = os.getenv('PROXY_PIA') if os.getenv('PROXY_PIA') != '' else False
@@ -196,7 +212,7 @@ if __name__ == '__main__':
     url = os.getenv('URL')
     model = os.getenv('MODEL_PATH')
     notes = os.getenv('NOTES')
-    proxies = None if os.getenv('PROXY_PIA') == '' else {'https': os.getenv('PROXY_PIA')}
+    proxies = None if not use_proxy else {'https': os.getenv('PROXY_PIA')}
 
     tmp = {'rate':rate_limit, 'proxy':use_proxy, 'dataset_path':dataset_path, 'url':url, 'model':model}
     if '' in tmp:
