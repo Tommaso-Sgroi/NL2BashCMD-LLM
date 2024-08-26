@@ -1,3 +1,4 @@
+./benchmarks/[gpt-4o-mini]-nl2bash-data.json-.json	-0.345482712188643
 ./benchmarks/[Llama-3-8b-hf]-nl2bash-data.json	-0.06301627481036318
 ./benchmarks/[Meta-Llama-3-8B.Q8_0]zero-shot-temp-0.8.json	-0.2604784206842882
 ./benchmarks/[Meta-Llama-3-8B.Q8_0]zero-shot-with-template-0.8.json	-0.271749245180574
