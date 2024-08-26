@@ -194,8 +194,9 @@ if __name__ == '__main__':
     args = argparser.parser.parse_args()
     for arg in vars(args):
         var = str(arg).upper()
-        if var != '':
-            os.environ[var] = str(getattr(args, str(arg))) # override env variables
+        value = str(getattr(args, str(arg)))
+        if var != '' and  value != '':
+            os.environ[var] = value # override env variables
 
     # beware, war crimes ahead
     # for arg in vars(args):
