@@ -10,3 +10,5 @@ parser.add_argument('-r', '--rate_limit', required=False, help='rate limit to se
 parser.add_argument('-m', '--model_path', required=False, help='model path or url to use')
 parser.add_argument('-n', '--notes', help='additional notes', default='')
 parser.add_argument('-o', '--output_path', required=False, help='output path to store the model\'s outputs')
+parser.add_argument('-t', '--temperature', required=False, help='DO NOT SET TO 0!!! close to 0 but not 0')
+

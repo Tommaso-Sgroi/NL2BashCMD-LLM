@@ -1,0 +1,5 @@
+"1": {"prediction": "", "confidence": 0.732151675147111, "score": -0.732151675147111, "ground_truth": "sudo cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/"},
+"2": {"prediction": "", "confidence": 0.5913243479619344, "score": -0.5913243479619344, "ground_truth": "cat /boot/config-`uname -r` | grep IP_MROUTE"},
+"3": {"prediction": "", "confidence": 0.8161762130223398, "score": -0.8161762130223398, "ground_truth": "cat /boot/config-`uname -r`"},
+"4": {"prediction": " lsmod | grep perf", "confidence": 0.7900866602366333, "score": -0.7900866602366333, "ground_truth": "find /lib/modules/`uname -r` -regex .*perf.*"},
+"5": {"prediction": "", "confidence": 0.6265483705779205, "score": -0.6265483705779205, "ground_truth": "grep \u201cHIGHMEM\u201d /boot/config-`uname -r`"},

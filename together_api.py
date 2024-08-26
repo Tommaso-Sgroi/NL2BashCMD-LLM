@@ -12,7 +12,7 @@ from neurips2020utils.metric.metric_utils import compute_metric
 from utils.data_loader import get_dataset
 from utils.send_request import RequestData, inference_with_together_api, wait_rate_limit, inference_with_api
 
-rate_limit = 0 # one request for second :(
+rate_limit = 1 # one request for second :(
 use_proxy = False
 proxies = None
 dataset_path = ""
@@ -27,7 +27,7 @@ headers = {
 }
 data = {
     # "n_predict": 1,
-    "temperature": 0,
+    "temperature": 0.8,
     "logprobs": True,
     "max_tokens": 50,
     "seed": 438441351351443,
@@ -213,6 +213,7 @@ if __name__ == '__main__':
     model = os.getenv('MODEL_PATH')
     notes = os.getenv('NOTES')
     proxies = None if not use_proxy else {'https': os.getenv('PROXY_PIA')}
+    data['temperature'] = float(os.getenv('TEMPERATURE'))
 
     tmp = {'rate':rate_limit, 'proxy':use_proxy, 'dataset_path':dataset_path, 'url':url, 'model':model}
     if '' in tmp:
