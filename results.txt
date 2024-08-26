@@ -1,9 +1,10 @@
-./benchmarks/[gpt-4o-mini]-nl2bash-data.json-.json	-0.345482712188643
+./benchmarks/[gpt-4o-mini]-nl2bash-data-untouched.json	-0.345482712188643
 ./benchmarks/[Llama-3-8b-hf]-nl2bash-data.json	-0.06301627481036318
 ./benchmarks/[Meta-Llama-3-8B.Q8_0]zero-shot-temp-0.8.json	-0.2604784206842882
 ./benchmarks/[Meta-Llama-3-8B.Q8_0]zero-shot-with-template-0.8.json	-0.271749245180574
 ./benchmarks/[Llama-3-8b-hf]-nl2bash-data.json-few-shots-temperature-0.2.json	-0.08653144271996714
 ./benchmarks/[Llama-3-8b-hf]-magnum_chatGPT_generated_data.json-None.json	-0.2815445708513803
+./benchmarks/[gpt-4o-mini]-nl2bash-data-refactored.json	-0.345482712188643
 ./benchmarks/['meta-llama', 'Llama-3-8b-hf']-few-shots-temp0.8.json	-0.057341983967698795
 ./benchmarks/tellina/Meta-Llama-3.1-8B_find-dot-fix-zero-shots.jsonl	-0.06761248629272373
 ./benchmarks/tellina/[gemma-2-2b]-zero-shots.jsonl	-0.2465392503960409
