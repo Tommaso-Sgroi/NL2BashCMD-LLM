@@ -175,7 +175,10 @@ url = os.getenv('URL')
 model = os.getenv('MODEL_PATH')
 notes = os.getenv('NOTES')
 proxies = None if not use_proxy else {'all': os.getenv('PROXY_PIA')}
-data['temperature'] = float(os.getenv('TEMPERATURE'))
+temp = os.getenv('TEMPERATURE')
+if temp.isdecimal():
+    data['temperature'] = float(temp)
+del temp
 headers['Authorization'] = f"Bearer {os.getenv('API_KEY')}"
 
 
