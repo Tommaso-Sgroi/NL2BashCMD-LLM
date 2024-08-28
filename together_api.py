@@ -18,7 +18,7 @@ from utils.send_request import RequestData, inference_with_together_api, wait_ra
 # dataset_path = ""
 dataset = {}
 # url = ""
-
+prompt_format = ''
 
 headers = {
     "accept": "application/json",
@@ -124,7 +124,7 @@ def benchmark(model_name, notes='', base_prompt='', early_stop=None):
             if k <= resume_from:
                 # skip the processed commands
                 continue
-            nl = base_prompt + f"Description: {command['invocation']} \nBash command: "
+            nl = base_prompt + prompt_format.format(command['invocation'])
             gtcmd = command['cmd']
 
 
@@ -223,7 +223,7 @@ if __name__ == '__main__':
     #
     #
     base_prompt = '''Task: Convert the following descriptions into bash commands.\n'''
-
+    prompt_format = 'Description: {} \nBash command: '
     dataset = get_dataset(dataset_path)
     required = {'rate': rate_limit, 'proxy': use_proxy, 'dataset_path': dataset_path, 'url': url, 'model': model}
     if '' in required:
