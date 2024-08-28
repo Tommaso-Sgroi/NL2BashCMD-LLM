@@ -1,11 +1,9 @@
-import json
 import math
 import os
 import time
 from json import dumps, dump
 from uu import Error
 
-from torch.onnx.symbolic_opset11 import chunk
 
 import utils.argparser as argparser
 from tqdm import tqdm
@@ -32,32 +30,37 @@ data = {
     "temperature": 0.8,
     "logprobs": True,
     "max_tokens": 50,
-    "seed": 438441351351443,
+    # "seed": 438441351351443,
     "stop": ['<|im_end|>', '</s>', '\n'],
+    "n":5,
 }
 
 def inference(prompt):
     data['prompt'] = prompt
 
     # data_request = RequestData(**data)
-    response = inference_with_api(url=url, headers=headers, data=data, proxies=proxies)
+    n_responses = inference_with_api(url=url, headers=headers, data=data, proxies=proxies)
+    pass
     # response.remove_backticks()
     # response.clean_text()
 
     # Extract tokens and log probabilities
-    logprobs = response.logprobs
-    tokens = response.tokens
-
+    n_logprobs = [response.logprobs for response in n_responses]
+    n_texts = [response.text for response in n_responses]
+    n_confidences = []
     # Calculate confidence (probability) for each token
-    confidences = [math.exp(logprob) for logprob in logprobs]
+    for logprobs in n_logprobs:
+        confidences = [math.exp(logprob) for logprob in logprobs]
 
-    average_confidence = -1 if len(confidences) == 0 else \
-        sum(confidences) / len(confidences)  # use the worst case if there is no prediction
+        average_confidence = -1 if len(confidences) == 0 else \
+            sum(confidences) / len(confidences)  # use the worst case if there is no prediction
 
-    return response.text, average_confidence
+        n_confidences.append(average_confidence)
+
+    return n_texts, n_confidences
 
 
-def benchmark(model_name, notes='', base_prompt=''):
+def benchmark(model_name, notes='', base_prompt='', early_stop=None):
     tmpfile = f'./benchmarks/tmp.[{os.path.basename(model_name)}]-{os.path.basename(dataset_path)}-{notes}.json'
     outfile = f'./benchmarks/[{os.path.basename(model_name)}]-{os.path.basename(dataset_path)}-{notes}.json'
     total_accuracy = []
@@ -101,7 +104,7 @@ def benchmark(model_name, notes='', base_prompt=''):
                 key = key[0]
                 nl2cmd = json.loads(nl2cmd)
                 if len(nl2cmd) > 0:
-                    total_accuracy.append(nl2cmd[key]['score'])
+                    # total_accuracy.append(nl2cmd[key]['score'])
                     predictions[key] = nl2cmd[key]
             return last
 
@@ -113,7 +116,8 @@ def benchmark(model_name, notes='', base_prompt=''):
         print(f'Warning: no file {tmpfile} found') # non mi va di usare un logger ora
         with open(tmpfile, 'w'):
             pass
-
+    print(data['temperature'])
+    stop_cond = 0
     with open(tmpfile, 'a+') as benchtmp:
         for k, command in tqdm(dataset.items()):
             k = int(k)
@@ -124,28 +128,44 @@ def benchmark(model_name, notes='', base_prompt=''):
             gtcmd = command['cmd']
 
 
-            prediction, confidence = inference(nl)
+            n_prediction, n_confidence = inference(nl)
             reset_limit = time.time()
-            score = compute_metric(predicted_cmd=prediction, predicted_confidence=confidence, ground_truth_cmd=gtcmd)
-            total_accuracy.append(score)
-
             predictions[k] = {
-                'prediction': prediction,
-                'confidence': confidence,
-                'score': score,
-                'ground_truth': gtcmd,
-            }
+                'predictions': [ ], # predictions
+                'confidences': [ ], # confidences
+                'scores':      [ ],
+                'ground_truth':gtcmd,
+            } # list of { gound_truth, prediction_list, confidence_list, scores_list }
+            for prediction, confidence in zip(n_prediction, n_confidence):
+                score = compute_metric(predicted_cmd=prediction, predicted_confidence=confidence, ground_truth_cmd=gtcmd)
+                predictions[k]['scores'].append(score)
+                predictions[k]['confidences'].append(confidence)
+                predictions[k]['predictions'].append(prediction)
+
             benchtmp.write(f'"{k}": {dumps(predictions[k])},\n')
-            # time_passed = time.time() - reset_limit
+            time_passed = time.time() - reset_limit
             # wait_rate_limit(rate_limit - time_passed)
+
             if rate_limit >= 0:
-                wait_rate_limit(rate_limit)
+                wait_rate_limit(rate_limit - time_passed)
+
+            if stop_cond == early_stop:
+                break
+            stop_cond += 1
 
         with open(outfile, 'w') as benchmark_tellina:
-            dump(predictions, benchmark_tellina, indent=2)
+            dump(predictions, benchmark_tellina, indent=1)
 
-    return sum(total_accuracy) / len(total_accuracy)
+    scores = calculate_full_metric(predictions)
+    return scores
 
+def calculate_full_metric(predictions):
+    from evaluate import compute_score
+    scores = []
+    for k, prediction in predictions.items():
+        k_full_score = compute_score([prediction['ground_truth']], prediction['predictions'], prediction['confidences'], {'u1':1.0, 'u2':1.0})
+        scores.append(k_full_score)
+    return sum(scores) / len(scores)
 
 def setup_envs():
     # -------------------------------------------
@@ -176,9 +196,18 @@ model = os.getenv('MODEL_PATH')
 notes = os.getenv('NOTES')
 proxies = None if not use_proxy else {'all': os.getenv('PROXY_PIA')}
 temp = os.getenv('TEMPERATURE')
-if temp.isdecimal():
+try:
     data['temperature'] = float(temp)
+except ValueError as e:
+    print(e)
+    data['temperature'] = 0.8
+    r = input("Temperature is not a number, proceed with 0.8? [y]n")
+    if r.lower() != 'y':
+        exit(2)
+    del r
+    data['temperature'] = 0.8
 del temp
+
 headers['Authorization'] = f"Bearer {os.getenv('API_KEY')}"
 
 
@@ -193,18 +222,16 @@ if __name__ == '__main__':
     #             f.write(f"{k}: {v},\n")
     #
     #
-    base_prompt = '''Task: Convert the following descriptions into bash commands.
-    Description: Remove all files in the current directory.
-    Bash Command: rm -rf *
-'''
+    base_prompt = '''Task: Convert the following descriptions into bash commands.\n'''
 
     dataset = get_dataset(dataset_path)
     required = {'rate': rate_limit, 'proxy': use_proxy, 'dataset_path': dataset_path, 'url': url, 'model': model}
     if '' in required:
         raise Error(f"some variable missing: {required}")
     del required
-
-    total = benchmark(model, notes=notes, base_prompt=base_prompt)
+    dataset = {k:v for k,v in dataset.items() if int(k) <= len(dataset) //2 }
+    total = benchmark(model, notes='part1', base_prompt=base_prompt)
+    print(total)
     # total = benchmark(model, notes=notes) # uncomment to use it without custom prompt
 
 

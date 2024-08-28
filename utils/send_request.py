@@ -21,11 +21,11 @@ class RequestData(JSONEncoder):
 
 
 class ResponseData(object):
-    def __init__(self, data):
+    def __init__(self, data, i=0):
         self.model = data["model"]
-        self.text = data["choices"][0]["text"]
-        self.logprobs = data["choices"][0]["logprobs"]["token_logprobs"]
-        self.tokens = data["choices"][0]["logprobs"]["tokens"]
+        self.text = data["choices"][i]["text"]
+        self.logprobs = data["choices"][i]["logprobs"]["token_logprobs"]
+        self.tokens = data["choices"][i]["logprobs"]["tokens"]
 
     def remove_backticks(self):
         if '`' in self.tokens[0]:
@@ -73,5 +73,8 @@ def inference_with_api(*, url, headers, data, proxies=None):
     json_response = response.json()
     if response.status_code != 200:
         print("Error: " + json.dumps(json_response, indent=2))
-    rd = ResponseData(json_response)
-    return rd
+    rds = []
+    for i in range(len(json_response['choices'])):
+        rd = ResponseData(json_response, i)
+        rds.append(rd)
+    return rds
