@@ -144,10 +144,10 @@ def compute_score(ground_truths, predicted_cmds, predicted_confds, metric_params
 
     score = get_score(prediction_scores)
 
-    print('-' * 50)
-    print(f'Ground truth: {ground_truths}')
-    print(f'Predictions: {predicted_cmds}')
-    print(f'Score: {score}')
+    # print('-' * 50)
+    # print(f'Ground truth: {ground_truths}')
+    # print(f'Predictions: {predicted_cmds}')
+    # print(f'Score: {score}')
 
     return score
 

@@ -229,8 +229,8 @@ if __name__ == '__main__':
     if '' in required:
         raise Error(f"some variable missing: {required}")
     del required
-    dataset = {k:v for k,v in dataset.items() if int(k) <= len(dataset) //2 }
-    total = benchmark(model, notes='part1', base_prompt=base_prompt)
+    # dataset = {k:v for k,v in dataset.items() if int(k) <= len(dataset) //2 }
+    total = benchmark(model, notes='zero-shot', base_prompt=base_prompt)
     print(total)
     # total = benchmark(model, notes=notes) # uncomment to use it without custom prompt
 
