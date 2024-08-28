@@ -196,28 +196,6 @@ if __name__ == '__main__':
     base_prompt = '''Task: Convert the following descriptions into bash commands.
     Description: Remove all files in the current directory.
     Bash Command: rm -rf *
-
-    Description: List all files in a directory including hidden files.
-    Bash Command: ls -a
-
-    Description: Create a new directory called "backup".
-    Bash Command: mkdir backup
-
-    Description: Check the current disk usage.
-    Bash Command: df -h
-
-    Description: Find all ".txt" files in the current directory.
-    Bash Command: find . -name "*.txt"
-
-    Description: Find all ".sh" files in the current directory.
-    Bash Command: find . | grep "sh"
-
-    Description: Copy a file called "example.txt" to the "backup" directory.
-    Bash Command: cp example.txt backup/
-
-    Description: list all files that ends with the .txt extension in the current directory.
-    Bash Command: ls -a | grep .txt
-
 '''
 
     dataset = get_dataset(dataset_path)

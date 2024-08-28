@@ -45,9 +45,12 @@ def inference(prompt):
         provider=g4f.Provider.DDG,
         # model=model,
         messages=[{"role": "user", "content": f'{prompt}'}],
+        logprobs = True,
+        top_logprobs = 5,
         **data
     )
     resp = response.to_json()
+    print(resp)
     return resp['choices'][0]['message']['content'], 1.0
 
 together_api.inference = inference

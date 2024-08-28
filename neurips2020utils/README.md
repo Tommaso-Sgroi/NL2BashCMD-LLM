@@ -12,7 +12,7 @@ The NLC2CMD Competition brings the power of natural language processing to the c
 
 - [`Home`](http://ibm.biz/nlc2cmd) - Link to competition homepage
 - [`EvalAI Home`](https://evalai.cloudcv.org/web/challenges/challenge-page/674/overview) - Link to EvalAI homepage
-- [`Submission Starter Kit`](./submission-code) - Starter kit for EvalAI submission
+- [`Submission Starter Kit`](./submission_code) - Starter kit for EvalAI submission
 - [`Tellina baseline`](./tellina-baseline) - Tellina baseline code
 - [`Slack`](http://ibm.biz/clai-slack) - Discussion forum for the challenge
 
