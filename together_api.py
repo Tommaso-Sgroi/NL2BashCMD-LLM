@@ -33,6 +33,7 @@ data = {
     # "seed": 438441351351443,
     "stop": ['<|im_end|>', '</s>', '\n'],
     "n":5,
+    # "top_k":50, # TODO new
 }
 
 def inference(prompt):
@@ -162,7 +163,7 @@ def benchmark(model_name, notes='', base_prompt='', early_stop=None):
 def calculate_full_metric(predictions):
     from evaluate import compute_score
     scores = []
-    for k, prediction in predictions.items():
+    for k, prediction in tqdm(predictions.items()):
         k_full_score = compute_score([prediction['ground_truth']], prediction['predictions'], prediction['confidences'], {'u1':1.0, 'u2':1.0})
         scores.append(k_full_score)
     return sum(scores) / len(scores)
@@ -229,9 +230,9 @@ if __name__ == '__main__':
     if '' in required:
         raise Error(f"some variable missing: {required}")
     del required
-    # dataset = {k:v for k,v in dataset.items() if int(k) <= len(dataset) //2 }
-    total = benchmark(model, notes='zero-shot', base_prompt=base_prompt)
-    print(total)
+
+    total = benchmark(model, notes=notes, base_prompt=base_prompt)
+    print('DONE:\n', total)
     # total = benchmark(model, notes=notes) # uncomment to use it without custom prompt
 
 

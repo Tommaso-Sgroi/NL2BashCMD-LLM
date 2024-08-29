@@ -70,7 +70,14 @@ if __name__ == '__main__':
     del data['stop']
 
 
-    base_prompt = """Convert the following descriptions into bash commands, you must write just the associated bash command with no comments or explanations.\n"""
+    base_prompt = """You are a professional bash command writer.
+Your sole task is to write a bash command based on the description provided by the user.
+
+Command Description: {}
+
+Your output must be strictly the command itself. 
+No explanations or additional information are allowed—only the command."""
+
     together_api.prompt_format = 'Description: {} \nBash command: '
 
     together_api.dataset = get_dataset(dataset_path)
