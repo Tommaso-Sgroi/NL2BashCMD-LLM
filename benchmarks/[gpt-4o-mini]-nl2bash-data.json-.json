@@ -1,0 +1,242 @@
+{
+ "1": {
+  "predictions": [
+   "cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/",
+   "sudo cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/ && sudo depmod",
+   "sudo cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/ && sudo depmod",
+   "sudo cp mymodule.ko /lib/modules/$(uname -r)/drivers/",
+   "sudo cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/"
+  ],
+  "confidences": [
+   0.9397559552313992,
+   0.9430992076209989,
+   0.9430992076209989,
+   0.9409394936814007,
+   0.9818276717585938
+  ],
+  "scores": [
+   0.9397559552313992,
+   -0.9430992076209989,
+   -0.9430992076209989,
+   0.9409394936814007,
+   0.9818276717585938
+  ],
+  "ground_truth": "sudo cp mymodule.ko /lib/modules/$(uname -r)/kernel/drivers/"
+ },
+ "2": {
+  "predictions": [
+   "grep \"IP_MROUTE\" /boot/config-$(uname -r)",
+   "grep \"IP_MROUTE\" /boot/config-$(uname -r)",
+   "grep \"IP_MROUTE\" /boot/config-$(uname -r)",
+   "grep \"IP_MROUTE\" /boot/config-$(uname -r)",
+   "grep \"IP_MROUTE\" /boot/config-$(uname -r)"
+  ],
+  "confidences": [
+   0.9714587332227355,
+   0.9589645435397459,
+   0.9714587332227355,
+   0.9589645435397459,
+   0.9589645435397459
+  ],
+  "scores": [
+   -0.3238195777409118,
+   -0.319654847846582,
+   -0.3238195777409118,
+   -0.319654847846582,
+   -0.319654847846582
+  ],
+  "ground_truth": "cat /boot/config-`uname -r` | grep IP_MROUTE"
+ },
+ "3": {
+  "predictions": [
+   "cat /boot/config-$(uname -r)",
+   "cat /boot/config-$(uname -r)",
+   "cat /boot/config-$(uname -r)",
+   "cat /boot/config-$(uname -r)",
+   "zcat /proc/config.gz"
+  ],
+  "confidences": [
+   0.9803802786895698,
+   0.9803802786895698,
+   0.9803802786895698,
+   0.9803802786895698,
+   0.8413255390439724
+  ],
+  "scores": [
+   0.9803802786895698,
+   0.9803802786895698,
+   0.9803802786895698,
+   0.9803802786895698,
+   -0.8413255390439724
+  ],
+  "ground_truth": "cat /boot/config-`uname -r`"
+ },
+ "4": {
+  "predictions": [
+   "modprobe -l | grep perf",
+   "lsmod | grep perf",
+   "lsmod | grep perf",
+   "lsmod | grep perf",
+   "lsmod | grep \"perf\""
+  ],
+  "confidences": [
+   0.6796287382865343,
+   0.9557640292423247,
+   0.9557640292423247,
+   0.9557640292423247,
+   0.8473343381004123
+  ],
+  "scores": [
+   -0.6796287382865343,
+   -0.9557640292423247,
+   -0.9557640292423247,
+   -0.9557640292423247,
+   -0.8473343381004123
+  ],
+  "ground_truth": "find /lib/modules/`uname -r` -regex .*perf.*"
+ },
+ "5": {
+  "predictions": [
+   "grep \"HIGHMEM\" /boot/config-$(uname -r)",
+   "grep \"HIGHMEM\" /boot/config-$(uname -r)",
+   "grep \"HIGHMEM\" /boot/config-$(uname -r)",
+   "grep \"HIGHMEM\" /proc/config.gz | gunzip -c",
+   "grep \"HIGHMEM\" /boot/config-$(uname -r)"
+  ],
+  "confidences": [
+   0.9881576986639521,
+   0.9881576986639521,
+   0.9881576986639521,
+   0.8770262412549806,
+   0.9881576986639521
+  ],
+  "scores": [
+   0.9881576986639521,
+   0.9881576986639521,
+   0.9881576986639521,
+   -0.4385131206274903,
+   0.9881576986639521
+  ],
+  "ground_truth": "grep \u201cHIGHMEM\u201d /boot/config-`uname -r`"
+ },
+ "6": {
+  "predictions": [
+   "grep \"tail\" /proc/2671/maps",
+   "cat /proc/2671/maps | grep tail",
+   "grep \"tail\" /proc/2671/maps",
+   "grep -a \"tail\" /proc/2671/maps",
+   "grep \"tail\" /proc/2671/maps"
+  ],
+  "confidences": [
+   0.9765704850498917,
+   0.8803413864068953,
+   0.9765704850498917,
+   0.8196747615102171,
+   0.9765704850498917
+  ],
+  "scores": [
+   -0.9765704850498919,
+   0.29344712880229845,
+   -0.9765704850498919,
+   -0.8196747615102171,
+   -0.9765704850498919
+  ],
+  "ground_truth": "cat /proc/2671/maps | grep `which tail`"
+ },
+ "7": {
+  "predictions": [
+   "grep \"PROBES\" /boot/config-$(uname -r)",
+   "grep 'PROBES' /boot/config-$(uname -r)",
+   "grep PROBES /boot/config-$(uname -r)",
+   "grep 'PROBES' /boot/config-$(uname -r)",
+   "grep PROBES /boot/config-$(uname -r)"
+  ],
+  "confidences": [
+   0.9113915336912369,
+   0.9267447329184765,
+   0.8965488594987436,
+   0.9267447329184765,
+   0.9278510024415664
+  ],
+  "scores": [
+   0.9113915336912369,
+   0.9267447329184765,
+   0.8965488594987436,
+   0.9267447329184765,
+   0.9278510024415664
+  ],
+  "ground_truth": "grep PROBES /boot/config-$(uname -r)"
+ },
+ "8": {
+  "predictions": [
+   "grep UTRACE /boot/config-$(uname -r)",
+   "cat /boot/config-$(uname -r) | grep UTRACE",
+   "grep UTRACE /boot/config-$(uname -r)",
+   "grep UTRACE /proc/config.gz | zcat",
+   "grep UTRACE /boot/config-$(uname -r)"
+  ],
+  "confidences": [
+   0.9657422033322235,
+   0.9033310465266366,
+   0.9657422033322235,
+   0.7730319300477038,
+   0.9231404269110008
+  ],
+  "scores": [
+   0.9657422033322235,
+   -0.3011103488422122,
+   0.9657422033322235,
+   -0.3865159650238519,
+   0.9231404269110008
+  ],
+  "ground_truth": "grep UTRACE /boot/config-$(uname -r)"
+ },
+ "9": {
+  "predictions": [
+   "grep \"ds1337\" /lib/modules/$(uname -r)/modules.alias",
+   "grep \"ds1337\" /lib/modules/$(uname -r)/ modules.alias",
+   "grep \"ds1337\" /lib/modules/$(uname -r)/modules.alias",
+   "grep \"ds1337\" /lib/modules/$(uname -r)/modules.alias",
+   "grep \"ds1337\" /lib/modules/$(uname -r)/modules.alias"
+  ],
+  "confidences": [
+   0.9660665338845845,
+   0.9171866837719235,
+   0.9759847487795701,
+   0.9660665338845845,
+   0.9759847487795701
+  ],
+  "scores": [
+   0.9660665338845845,
+   0.9171866837719235,
+   0.9759847487795701,
+   0.9660665338845845,
+   0.9759847487795701
+  ],
+  "ground_truth": "grep ds1337 /lib/modules/`uname -r`/modules.alias"
+ },
+ "10": {
+  "predictions": [
+   "sed -n 'p' filename",
+   "sed -n 'p' filename",
+   "sed -i '' 's/.*/&/' filename",
+   "sed -e '' filename",
+   "sed -e '' filename"
+  ],
+  "confidences": [
+   0.895701743890588,
+   0.895701743890588,
+   0.9235743091740414,
+   0.8509647686810948,
+   0.8509647686810948
+  ],
+  "scores": [
+   -0.447850871945294,
+   -0.447850871945294,
+   0.9235743091740414,
+   -0.4254823843405474,
+   -0.4254823843405474
+  ],
+  "ground_truth": "sed -i \"s/\\\\\\\\\\n//g\" filename"
+ }
+}

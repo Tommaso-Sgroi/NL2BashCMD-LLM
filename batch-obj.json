@@ -1,0 +1,28 @@
+{
+  "id": "batch_LtHkURJV0IWLpkW6HmV84UDW",
+  "completion_window": "24h",
+  "created_at": 1725050565,
+  "endpoint": "/v1/chat/completions",
+  "input_file_id": "file-IwFZYdgmoB678NALJeCMZcFC",
+  "object": "batch",
+  "status": "validating",
+  "cancelled_at": null,
+  "cancelling_at": null,
+  "completed_at": null,
+  "error_file_id": null,
+  "errors": null,
+  "expired_at": null,
+  "expires_at": 1725136965,
+  "failed_at": null,
+  "finalizing_at": null,
+  "in_progress_at": null,
+  "metadata": {
+    "description": "Tellina nl2bash benchmark job"
+  },
+  "output_file_id": null,
+  "request_counts": {
+    "completed": 0,
+    "failed": 0,
+    "total": 0
+  }
+}
