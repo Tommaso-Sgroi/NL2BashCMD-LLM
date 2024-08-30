@@ -3,6 +3,8 @@ import os
 from multiprocessing import Pool, cpu_count
 from tqdm import tqdm
 from evaluate import compute_score
+import utils.argparser as argparser
+args = argparser.parser.parse_args()
 
 def load_dataset_from_file(file_path):
     entries = []
@@ -41,7 +43,7 @@ def process_file(file_path):
     return file_path, acc
 
 def main():
-    num_processes = min(cpu_count(), 7)  # Set number of concurrent processes
+    num_processes = args.processes if args.processes >= 0 else cpu_count() # Set number of concurrent processes
 
     # Collect all file paths to process
     file_paths = []
