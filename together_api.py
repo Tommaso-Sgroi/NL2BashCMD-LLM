@@ -2,8 +2,7 @@ import math
 import os
 import time
 from json import dumps, dump
-from uu import Error
-
+from metric_calculator import calculate_full_metric
 
 import utils.argparser as argparser
 from tqdm import tqdm
@@ -160,13 +159,6 @@ def benchmark(model_name, notes='', base_prompt='', early_stop=None):
     scores = calculate_full_metric(predictions)
     return scores
 
-def calculate_full_metric(predictions):
-    from evaluate import compute_score
-    scores = []
-    for k, prediction in tqdm(predictions.items()):
-        k_full_score = compute_score([prediction['ground_truth']], prediction['predictions'], prediction['confidences'], {'u1':1.0, 'u2':1.0})
-        scores.append(k_full_score)
-    return sum(scores) / len(scores)
 
 def setup_envs():
     # -------------------------------------------
@@ -228,7 +220,7 @@ if __name__ == '__main__':
     dataset = get_dataset(dataset_path)
     required = {'rate': rate_limit, 'proxy': use_proxy, 'dataset_path': dataset_path, 'url': url, 'model': model}
     if '' in required:
-        raise Error(f"some variable missing: {required}")
+        raise Exception(f"some variable missing: {required}")
     del required
 
     total = benchmark(model, notes=notes, base_prompt=base_prompt)
