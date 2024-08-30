@@ -11,4 +11,6 @@ parser.add_argument('-m', '--model_path', required=False, help='model path or ur
 parser.add_argument('-n', '--notes', help='additional notes', default='')
 parser.add_argument('-o', '--output_path', required=False, help='output path to store the model\'s outputs')
 parser.add_argument('-t', '--temperature', required=False, help='DO NOT SET TO 0!!! close to 0 but not 0')
+parser.add_argument( '--processes', required=False, help='number of processes to execute to calculate all accuracy benchmarks, see scripts!')
+
 
