@@ -30,7 +30,7 @@ data = {
     "logprobs": True,
     "max_tokens": 50,
     # "seed": 438441351351443,
-    "stop": ['<|im_end|>', '</s>', '\n'],
+    # "stop": ['<|im_end|>', '</s>', '\n'],
     "n":5,
     # "top_k":50, # TODO new
 }
@@ -116,7 +116,7 @@ def benchmark(model_name, notes='', base_prompt='', early_stop=None):
         print(f'Warning: no file {tmpfile} found') # non mi va di usare un logger ora
         with open(tmpfile, 'w'):
             pass
-    print(data['temperature'])
+    # print(data['temperature'])
     stop_cond = 0
     with open(tmpfile, 'a+') as benchtmp:
         for k, command in tqdm(dataset.items()):
@@ -124,6 +124,8 @@ def benchmark(model_name, notes='', base_prompt='', early_stop=None):
             if k <= resume_from:
                 # skip the processed commands
                 continue
+            if stop_cond <= early_stop:
+                break
             nl = base_prompt + prompt_format.format(command['invocation'])
             gtcmd = command['cmd']
 
@@ -149,8 +151,7 @@ def benchmark(model_name, notes='', base_prompt='', early_stop=None):
             if rate_limit >= 0:
                 wait_rate_limit(rate_limit - time_passed)
 
-            if stop_cond == early_stop:
-                break
+
             stop_cond += 1
 
         with open(outfile, 'w') as benchmark_tellina:
@@ -218,6 +219,10 @@ if __name__ == '__main__':
     base_prompt = '''Task: Convert the following descriptions into bash commands.\n'''
     prompt_format = 'Description: {} \nBash command: '
     dataset = get_dataset(dataset_path)
+    if notes == 'part1':
+        dataset = {k: v for k, v in dataset.items() if int(k) <= len(dataset) // 2}
+    if notes == 'part2':
+        dataset = {k: v for k, v in dataset.items() if int(k) > len(dataset) // 2}
     required = {'rate': rate_limit, 'proxy': use_proxy, 'dataset_path': dataset_path, 'url': url, 'model': model}
     if '' in required:
         raise Exception(f"some variable missing: {required}")

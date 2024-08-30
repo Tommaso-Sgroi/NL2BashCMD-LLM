@@ -185,8 +185,8 @@ def evaluate_model(annotation_filepath, params_filepath):
             for i in range(n)
         ]
 
-        print(f'sum: {sum(scores)}, n: {n}')
-        print('----------------------- Predictions -----------------------')
+        # print(f'sum: {sum(scores)}, n: {n}')
+        # print('----------------------- Predictions -----------------------')
 
         mean_score = sum(scores) / float(n)
         time_taken = 1.0 # total_time_taken / float(n)

@@ -69,17 +69,8 @@ if __name__ == '__main__':
     del data['logprobs']
     del data['stop']
 
-
-    base_prompt = """You are a professional bash command writer.
-Your sole task is to write a bash command based on the description provided by the user.
-
-Command Description: {}
-
-Your output must be strictly the command itself. 
-No explanations or additional information are allowed—only the command."""
-
-    together_api.prompt_format = 'Description: {} \nBash command: '
-
+    together_api.prompt_format = 'Description: {}.'
+    base_prompt = "Write me a one line bash command for the following tasks, "
     together_api.dataset = get_dataset(dataset_path)
     model_path = os.getenv('MODEL_PATH')
     benchmark(model_name=model_path, base_prompt=base_prompt)
