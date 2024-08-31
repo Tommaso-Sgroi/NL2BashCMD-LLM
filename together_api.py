@@ -124,7 +124,7 @@ def benchmark(model_name, notes='', base_prompt='', early_stop=None):
             if k <= resume_from:
                 # skip the processed commands
                 continue
-            if stop_cond >= early_stop:
+            if early_stop is not None and stop_cond >= early_stop:
                 break
             nl = base_prompt + prompt_format.format(command['invocation'])
             gtcmd = command['cmd']
