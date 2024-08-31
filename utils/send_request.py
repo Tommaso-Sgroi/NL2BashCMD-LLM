@@ -51,7 +51,7 @@ class ResponseChatData(ResponseData):
     def __init__(self, data, i=0):
         self.model = data["model"]
         self.text = data["choices"][i]["message"]["content"]
-        self.text.replace('```bash\n', '', 1).replace('```', '', 1)
+        self.text = self.text.replace('```bash\n', '').replace('```', '')
         self.logprobs = []
         self.tokens = []
         for logprobs in data["choices"][i]["logprobs"]["content"]:
