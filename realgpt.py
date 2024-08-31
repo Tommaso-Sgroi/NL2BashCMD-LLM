@@ -1,7 +1,6 @@
 import json
 import os
 from openai import OpenAI
-from webview import start
 
 import together_api
 from together_api import benchmark, dataset_path
@@ -19,7 +18,7 @@ Your output must be strictly the command itself, no explanations or additional i
 """
 
 # Initialize the OpenAI client with the API key, project, and organization
-client = OpenAI(api_key=os.environ['API_KEY'])
+client = OpenAI(api_key=os.environ['API_KEY'], project='proj_Jj0U3h7ovNTNr1eR33lWjlbv', organization='org-poN8ibmByghdh4thRUeuixFy')
 
 n_count = 5
 # status = client.batches.retrieve("batch_evROwUP7GFIHP47Ez7dww5Xr")
@@ -47,11 +46,9 @@ def batch_inference(dataset, start=0, stop=-1):
                 f.write(line + ('\n' if index < len(jsonl) - 1 else ''))
 
     current = 0
+    truncate_dataset = list(dataset.items())[start:stop]
+    dataset = dict(truncate_dataset)
     for key, invocation_cmd in dataset.items():
-        if current < start:
-            continue
-        current += 1
-        start += 1
         prompt = (together_api.base_prompt +
                   together_api.prompt_format.format(invocation_cmd['invocation']))
         entry = {
@@ -73,9 +70,6 @@ def batch_inference(dataset, start=0, stop=-1):
         entry = to_jsonline(entry)
         entries.append(entry)
         print(entry)
-        if stop > 1000:
-            break
-        stop += 1
     dump_jsonl(entries)
     batch_input_file = client.files.create(
         file=open(JSONL_PATH, "rb"),
@@ -145,6 +139,6 @@ if __name__ == '__main__':
 
     together_api.dataset = get_dataset(dataset_path)
     # benchmark(model_name='gpt-4o-mini', base_prompt=together_api.base_prompt, early_stop=10)
-    batch_inference(together_api.dataset, start=1002, stop=3000)
+    batch_inference(together_api.dataset, start=2500, stop=4000)
     # Print the response from the model
     # print(completion.to_json())

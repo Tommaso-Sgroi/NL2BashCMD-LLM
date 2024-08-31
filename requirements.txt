@@ -7,3 +7,4 @@ torch==2.4.0
 ollama~=0.3.1
 requests~=2.32.3
 tqdm~=4.66.5
+openai~=1.43.0
