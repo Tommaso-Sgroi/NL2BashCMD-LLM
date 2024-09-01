@@ -3,7 +3,7 @@ import os
 from openai import OpenAI
 
 import together_api
-from together_api import benchmark, dataset_path
+from together_api import dataset_path
 from utils.data_loader import get_dataset
 import math
 # Set up fake API keys, project name, and organization for the example
@@ -139,6 +139,6 @@ if __name__ == '__main__':
 
     together_api.dataset = get_dataset(dataset_path)
     # benchmark(model_name='gpt-4o-mini', base_prompt=together_api.base_prompt, early_stop=10)
-    batch_inference(together_api.dataset, start=8500, stop=10000)
+    batch_inference(together_api.dataset, start=10_000, stop=11_500)
     # Print the response from the model
     # print(completion.to_json())
