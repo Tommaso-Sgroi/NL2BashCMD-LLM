@@ -139,6 +139,6 @@ if __name__ == '__main__':
 
     together_api.dataset = get_dataset(dataset_path)
     # benchmark(model_name='gpt-4o-mini', base_prompt=together_api.base_prompt, early_stop=10)
-    batch_inference(together_api.dataset, start=7000, stop=8500)
+    batch_inference(together_api.dataset, start=8500, stop=10000)
     # Print the response from the model
     # print(completion.to_json())
