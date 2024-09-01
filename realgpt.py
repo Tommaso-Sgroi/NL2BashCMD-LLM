@@ -46,7 +46,7 @@ def batch_inference(dataset, start=0, stop=-1):
                 f.write(line + ('\n' if index < len(jsonl) - 1 else ''))
 
     current = 0
-    truncate_dataset = list(dataset.items())[start:stop]
+    truncate_dataset = list(dataset.items())[start:]
     dataset = dict(truncate_dataset)
     for key, invocation_cmd in dataset.items():
         prompt = (together_api.base_prompt +
