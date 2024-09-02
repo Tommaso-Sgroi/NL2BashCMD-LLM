@@ -6,6 +6,7 @@ import together_api
 from together_api import dataset_path
 from utils.data_loader import get_dataset
 import math
+from time import sleep
 # Set up fake API keys, project name, and organization for the example
 # os.environ['API_KEY'] = "fake-api-key-1234567890abcdef"
 # os.environ['PROJECT_NAME'] = ""
@@ -27,14 +28,14 @@ n_count = 5
 # print(status)
 # quit()
 
-def batch_inference(dataset, start=0, stop=-1):
+def batch_inference(dataset, start_from=0, stop_at=-1):
     """
     {"custom_id": "request-1", "method": "POST", "url": "/v1/chat/completions", "body": {"model": "gpt-3.5-turbo-0125", "messages": [{"role": "system", "content": "You are a helpful assistant."},{"role": "user", "content": "Hello world!"}],"max_tokens": 1000}}
     {"custom_id": "request-2", "method": "POST", "url": "/v1/chat/completions", "body": {"model": "gpt-3.5-turbo-0125", "messages": [{"role": "system", "content": "You are an unhelpful assistant."},{"role": "user", "content": "Hello world!"}],"max_tokens": 1000}}
     """
     JSONL_PATH = './nl2cmd_batch.jsonl'
     entries = []
-    if stop < 0:
+    if stop_at < 0:
         stop = len(dataset)
 
     def to_jsonline(entry_):
@@ -46,7 +47,7 @@ def batch_inference(dataset, start=0, stop=-1):
                 f.write(line + ('\n' if index < len(jsonl) - 1 else ''))
 
     current = 0
-    truncate_dataset = list(dataset.items())[start:]
+    truncate_dataset = list(dataset.items())[start_from:stop_at]
     dataset = dict(truncate_dataset)
     for key, invocation_cmd in dataset.items():
         prompt = (together_api.base_prompt +
@@ -56,7 +57,7 @@ def batch_inference(dataset, start=0, stop=-1):
             "method": "POST",
             "url": "/v1/chat/completions",
             "body": {
-                'model':"gpt-4o-mini",
+                'model':"gpt-4o",
                 'messages':[
                     {"role": "system", "content": CHAT_PROMPT},
                     {"role": "user", "content": prompt},
@@ -64,12 +65,12 @@ def batch_inference(dataset, start=0, stop=-1):
                 'logprobs':True,
                 'max_tokens':128,
                 'n':n_count,
-                'temperature':1.25, # see https://platform.openai.com/docs/api-reference/chat/create#chat-create-temperature
+                'temperature':0.8, # see https://platform.openai.com/docs/api-reference/chat/create#chat-create-temperature
             }
         }
         entry = to_jsonline(entry)
         entries.append(entry)
-        print(entry)
+        # print(entry)
     dump_jsonl(entries)
     batch_input_file = client.files.create(
         file=open(JSONL_PATH, "rb"),
@@ -87,6 +88,8 @@ def batch_inference(dataset, start=0, stop=-1):
     )
     with open('batch-obj.json', 'w') as f:
         json.dump(batch.to_dict(), f, indent=2)
+
+    return batch.id
 
 
 def retrieve_batch(file_id):
@@ -133,12 +136,30 @@ together_api.inference = inference
 
 # print(inference('hello, nice to meet you.'))
 if __name__ == '__main__':
-
     together_api.prompt_format = 'description: {}'
     together_api.base_prompt = "Write me a one line bash command for the following tasks, "
 
     together_api.dataset = get_dataset(dataset_path)
     # benchmark(model_name='gpt-4o-mini', base_prompt=together_api.base_prompt, early_stop=10)
-    batch_inference(together_api.dataset, start=10_000, stop=11_500)
+    start= 1500
+    window = 750
+    stop = start + window
+    batch_number = 1
+    while stop < len(together_api.dataset):
+        batch_id = batch_inference(together_api.dataset, start_from=start, stop_at=stop)
+        start += window
+        stop += window
+        batch_number += 1
+        response = client.batches.retrieve(batch_id)
+        while response.status != 'completed':
+            print("no results, waiting 3 minutes. Status: ", response.status)
+            if response.status.lower == 'finalizing':
+                sleep(10) # wait 10 seconds then try to retrieve the results
+            else:
+                sleep(60*3) # wait 3 minutes then try to retrieve the results
+        file_response = client.files.content(response.output_file_id)
+        output = file_response.text
+        with open(f'./benchmarks/[gpt-4o-batch{batch_number}]-tellina.jsonl', 'w') as f:
+            f.write(output)
     # Print the response from the model
     # print(completion.to_json())
