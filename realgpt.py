@@ -141,25 +141,27 @@ if __name__ == '__main__':
 
     together_api.dataset = get_dataset(dataset_path)
     # benchmark(model_name='gpt-4o-mini', base_prompt=together_api.base_prompt, early_stop=10)
-    start= 1500
+    start= 3000
     window = 750
     stop = start + window
-    batch_number = 1
-    while stop < len(together_api.dataset):
+    batch_number = 5
+    while start < len(together_api.dataset):
         batch_id = batch_inference(together_api.dataset, start_from=start, stop_at=stop)
-        start += window
-        stop += window
-        batch_number += 1
         response = client.batches.retrieve(batch_id)
         while response.status != 'completed':
-            print("no results, waiting 3 minutes. Status: ", response.status)
             if response.status.lower == 'finalizing':
+                print(f"{response.status}, waiting 10 seconds")
                 sleep(10) # wait 10 seconds then try to retrieve the results
             else:
+                print(f"{response.status}, waiting 3 minutes. Status: ", response.status)
                 sleep(60*3) # wait 3 minutes then try to retrieve the results
+            response = client.batches.retrieve(batch_id)
         file_response = client.files.content(response.output_file_id)
         output = file_response.text
         with open(f'./benchmarks/[gpt-4o-batch{batch_number}]-tellina.jsonl', 'w') as f:
             f.write(output)
+        batch_number += 1
+        start += window
+        stop += window
     # Print the response from the model
     # print(completion.to_json())
