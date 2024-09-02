@@ -1,7 +1,6 @@
-./benchmarks/[gpt-4o-mini]-nl2bash-data.json-.json	0.5836793269014717
-./benchmarks/[gpt-4o]-nl2bash-data.json-.json	0.18094222118934822
 ./benchmarks/[Llama-3-70b-chat-hf]-magnum_chatGPT_generated_data.json	-0.23185593944624155
 ./benchmarks/[gpt-4o-mini]-full.jsonl	0.07416866891833872
+./benchmarks/[gpt-4o]-full.jsonl	0.1174717470204527
 ./benchmarks/nl2bash_tellina/zero-shot/Meta-Llama-3.1-8B_find-dot-fix.jsonl	0.013707089349669212
 ./benchmarks/nl2bash_tellina/zero-shot/mistral-7b-instruct-v0.3_find-dot-fix.jsonl	-0.5152915895969945
 ./benchmarks/nl2bash_tellina/zero-shot/[Llama-3-8b-hf]-base.json	0.044014187498550066
