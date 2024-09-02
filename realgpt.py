@@ -141,15 +141,15 @@ if __name__ == '__main__':
 
     together_api.dataset = get_dataset(dataset_path)
     # benchmark(model_name='gpt-4o-mini', base_prompt=together_api.base_prompt, early_stop=10)
-    start= 3000
+    start= 4500
     window = 750
     stop = start + window
-    batch_number = 5
+    batch_number = 7
     while start < len(together_api.dataset):
         batch_id = batch_inference(together_api.dataset, start_from=start, stop_at=stop)
         response = client.batches.retrieve(batch_id)
         while response.status != 'completed':
-            if response.status.lower == 'finalizing':
+            if response.status == 'finalizing':
                 print(f"{response.status}, waiting 10 seconds")
                 sleep(10) # wait 10 seconds then try to retrieve the results
             else:
